@@ -2,6 +2,7 @@ package com.jb.aoc.yr_2024.day_3;
 
 import java.io.File;
 import java.util.Scanner;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class D3_Mull_It_Over {
@@ -115,6 +116,30 @@ public class D3_Mull_It_Over {
 
 
 
+    // cleaner version
+    public static void sumOfUncorruptedMull3(String input) {
+        String regex = "mul\\((\\d+),(\\d+)\\)|(do\\(\\))|(don't\\(\\))";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(input);
+
+        boolean isMullEnabled = true;
+        long sum1 = 0;
+        long sum2 = 0;
+
+        while(matcher.find()) {
+            String instruction = matcher.group();
+            System.out.println(instruction);
+
+            if(instruction.equals("do()")){ isMullEnabled = true; }
+            else if(instruction.equals("don't()")){ isMullEnabled = false; }
+            else{
+                sum1 += evaluate(instruction);
+                sum2 += isMullEnabled ? evaluate(instruction) : 0;
+            }
+        }
+        System.out.println(sum1 + " " + sum2);
+    }
+
     public static String readInput(String filename){
         File file = new File(filename);
         try{
@@ -133,9 +158,11 @@ public class D3_Mull_It_Over {
     }
 
     public static void main(String[] args) {
-        long ans = sumOfUncorruptedMull(readInput("src/main/resources/inputs/day_3/input.txt"));
-        long ans2 = sumOfUncorruptedMull2(readInput("src/main/resources/inputs/day_3/input.txt"));
-        System.out.println(ans);
-        System.out.println(ans2);
+//        long ans = sumOfUncorruptedMull(readInput("src/main/resources/inputs/day_3/input.txt"));
+//        long ans2 = sumOfUncorruptedMull2(readInput("src/main/resources/inputs/day_3/input.txt"));
+//        System.out.println(ans);
+//        System.out.println(ans2);
+
+        sumOfUncorruptedMull3(readInput("src/main/resources/inputs/day_3/input.txt"));
     }
 }
