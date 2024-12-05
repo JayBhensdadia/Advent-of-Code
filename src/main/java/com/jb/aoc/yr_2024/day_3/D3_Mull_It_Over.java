@@ -123,8 +123,8 @@ public class D3_Mull_It_Over {
         Matcher matcher = pattern.matcher(input);
 
         boolean isMullEnabled = true;
-        long sum1 = 0;
-        long sum2 = 0;
+        long sum1 = 0; // part 1 solution
+        long sum2 = 0; // part 2 solution
 
         while(matcher.find()) {
             String instruction = matcher.group();
